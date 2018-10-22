@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,7 +32,7 @@ public class Items_Adapter extends ArrayAdapter<String> {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rowView = inflater.inflate(R.layout.items_list, parent, false);
         final TextView itemName = (TextView) rowView.findViewById(R.id.item_name);
-        TextView itemPrice = (TextView) rowView.findViewById(R.id.item_price);
+        TextView itemPrice = (TextView) rowView.findViewById(R.id.item_unit);
         TextView itemSeller = (TextView) rowView.findViewById(R.id.seller_value);
         itemName.setText(items[position]);
         itemPrice.setText(prices[position].toString());
@@ -42,11 +41,7 @@ public class Items_Adapter extends ArrayAdapter<String> {
         order.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                buyer_home.makeOrder(v.getId());
-//                ((ListView) parent).performItemClick(v, position, 0);
-                Toast.makeText(context, "You selected: " + v.getId(), Toast.LENGTH_SHORT).show();
                 Toast.makeText(context, "You selected: " + itemName.getText(), Toast.LENGTH_SHORT).show();
-
             }
         });
         return rowView;

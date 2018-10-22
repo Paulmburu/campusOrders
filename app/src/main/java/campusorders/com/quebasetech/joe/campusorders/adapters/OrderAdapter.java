@@ -33,7 +33,7 @@ public class OrderAdapter extends ArrayAdapter<String> {
         view = inflater.inflate(R.layout.orders_list,  parent, false);
         // Populate view with content
         TextView location = (TextView) view.findViewById(R.id.item_name);
-        TextView qtyLabel = (TextView) view.findViewById(R.id.item_price);
+        TextView qtyLabel = (TextView) view.findViewById(R.id.item_unit);
         TextView price = (TextView) view.findViewById(R.id.order_value);
         TextView buyer = (TextView) view.findViewById(R.id.buyer_name);
 

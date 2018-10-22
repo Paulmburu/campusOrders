@@ -72,7 +72,7 @@ public class BuyerDashboard extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // TODO:: Launch dialog for each
-                Toast.makeText(context, "You selected: " + view.getId(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "View selected: " + view.getId(), Toast.LENGTH_SHORT).show();
             }
         });
         return view;

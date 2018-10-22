@@ -13,7 +13,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
         android:text="@string/email"
-        app:layout_constraintBaseline_toBaselineOf="@+id/emil_field"
+        app:layout_constraintBaseline_toBaselineOf="@+id/email_field"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -37,10 +37,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/emil_field" />
+        app:layout_constraintTop_toBottomOf="@+id/email_field" />
 
     <EditText
-        android:id="@+id/emil_field"
+        android:id="@+id/email_field"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
@@ -58,7 +58,7 @@
         android:layout_height="45dp"
         android:layout_marginTop="50dp"
         android:background="@android:color/holo_blue_dark"
-        android:onClick="showHome"
+        android:onClick="loginUser"
         android:text="@string/login"
         android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
@@ -81,6 +81,7 @@
         android:layout_height="45dp"
         android:layout_marginTop="24dp"
         android:background="@android:color/holo_blue_dark"
+        android:onClick="registerUser"
         android:text="@string/register"
         android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
@@ -98,7 +99,7 @@
         android:textSize="36sp"
         android:textStyle="bold|italic"
         app:fontFamily="cursive"
-        app:layout_constraintBottom_toTopOf="@+id/emil_field"
+        app:layout_constraintBottom_toTopOf="@+id/email_field"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
@@ -115,4 +116,20 @@
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login_activity_title_text" />
+
+    <TextView
+        android:id="@+id/message_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:textColor="@android:color/holo_red_dark"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/register_button" />
 </android.support.constraint.ConstraintLayout>

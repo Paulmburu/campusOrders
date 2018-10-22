@@ -47,7 +47,7 @@
             app:layout_constraintTop_toBottomOf="@+id/item_name" />
 
         <TextView
-            android:id="@+id/item_price"
+            android:id="@+id/item_unit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="32dp"
@@ -108,7 +108,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Kshs: "
-            app:layout_constraintBaseline_toBaselineOf="@+id/item_price"
+            app:layout_constraintBaseline_toBaselineOf="@+id/item_unit"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.23"
             app:layout_constraintStart_toStartOf="parent" />

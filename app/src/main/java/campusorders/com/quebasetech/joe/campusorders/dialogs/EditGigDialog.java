@@ -1,8 +1,24 @@
+/*
+ * Copyright (c) 2018.  Que Base Technologies
+ *
+ * Joe Nyugoh 19/ 10/ 2018.
+ * MIT License
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
 package campusorders.com.quebasetech.joe.campusorders.dialogs;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -23,27 +39,37 @@ import com.google.firebase.database.FirebaseDatabase;
 import campusorders.com.quebasetech.joe.campusorders.R;
 import campusorders.com.quebasetech.joe.campusorders.model.Gig;
 
-public class AddItemDialog extends DialogFragment {
+public class EditGigDialog extends DialogFragment {
     private EditText mName;
     private EditText mUnitMeasure;
     private EditText mPrice;
-    private Button mAddButton, mCancelButton;
+    private Button mEditButton, mCancelButton;
     private DatabaseReference gigsDatabase;
     private ProgressDialog progressDialog;
+    private Context mContext;
+
+    public void setContext(Context context) {
+        this.mContext = context;
+    }
+
+    public static EditGigDialog newInstance() {
+        return new EditGigDialog();
+    }
+
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        final View addDialog = inflater.inflate(R.layout.add_item_dialog, null);
+        final View editDialog = inflater.inflate(R.layout.edit_item_dialog, null);
 
         // Init view
-        mName = (EditText) addDialog.findViewById(R.id.item_name);
-        mUnitMeasure = (EditText) addDialog.findViewById(R.id.item_unit);
-        mPrice = (EditText) addDialog.findViewById(R.id.item_price);
+        mName = (EditText) editDialog.findViewById(R.id.item_name);
+        mUnitMeasure = (EditText) editDialog.findViewById(R.id.item_unit);
+        mPrice = (EditText) editDialog.findViewById(R.id.item_price);
         gigsDatabase = FirebaseDatabase.getInstance().getReference("gigs");
-        mCancelButton = (Button) addDialog.findViewById(R.id.add_item_cancel_btn);
-        mAddButton = (Button) addDialog.findViewById(R.id.add_item_btn);
+        /*mCancelButton = (Button) editDialog.findViewById(R.id.edit_item_cancel_btn);
+        mEditButton = (Button) editDialog.findViewById(R.id.edit_item_btn);
         progressDialog = new ProgressDialog(getContext());
 
         // Handle button clicks
@@ -53,13 +79,13 @@ public class AddItemDialog extends DialogFragment {
                 dismiss();
             }
         });
-        mAddButton.setOnClickListener(new View.OnClickListener() {
+        mEditButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // TODO:: Save item to database
-                progressDialog.setMessage("Adding item...");
+                progressDialog.setMessage("Saving item");
                 progressDialog.show();
-                Gig gig = addGig();
+                Gig gig = editGig(new Gig());
                 if(gig != null) {
                     gigsDatabase.child(gig.getId())
                             .setValue(gig)
@@ -67,7 +93,7 @@ public class AddItemDialog extends DialogFragment {
                                 @Override
                                 public void onSuccess(Void aVoid) {
                                     progressDialog.dismiss();
-                                    Toast.makeText(getContext(), "Item added", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getContext(), "Item edited", Toast.LENGTH_SHORT).show();
                                     dismiss();
                                 }
                             })
@@ -75,61 +101,47 @@ public class AddItemDialog extends DialogFragment {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
                                     progressDialog.dismiss();
-                                    Toast.makeText(getContext(), "Failed adding item: "+ e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getContext(), "Failed editing item: "+ e.getMessage(), Toast.LENGTH_SHORT).show();
                                 }
                             });
 
                 }
             }
         });
-
-        builder.setView(addDialog)
-                .setMessage("Add item");
+*/
+        builder.setView(editDialog)
+                .setMessage("Edit item");
 
         return builder.create();
     }
 
-    private Gig addGig(){
-        Gig gig = null;
+    private Gig editGig(Gig gig){
         String name = mName.getText().toString().trim();
         String unit = mUnitMeasure.getText().toString().trim();
         String priceString = mPrice.getText().toString().trim();
 
         if(name.isEmpty()){
             mName.setError("Name is required");
-            return gig;
+            return null;
+        } else {
+            gig.setName(name);
         }
 
         if(unit.isEmpty()){
             mUnitMeasure.setError("Unit is required");
-            return gig;
+            return null;
+        } else {
+            gig.setUnit(unit);
         }
 
         if(priceString.isEmpty()){
             mPrice.setError("Price is required");
-            return gig;
+            return null;
+        } else {
+            int price = Integer.parseInt(priceString);
+            gig.setPrice(price);
         }
-        int price = Integer.parseInt(priceString);
-        String seller = getCurrentUserEmail();
-
-        if(seller.isEmpty())
-            return gig;
-
-        // Generate unique id for item
-        String id = gigsDatabase.push().getKey();
-        gig = new Gig(id, name, 10000, price, seller, true, unit);
         return gig;
     }
-
-    private String getCurrentUserEmail() {
-        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-
-        assert firebaseUser != null;
-        if(firebaseUser.getEmail() != null)
-            return firebaseUser.getEmail();
-        else
-            return "";
-    }
-
 }
+

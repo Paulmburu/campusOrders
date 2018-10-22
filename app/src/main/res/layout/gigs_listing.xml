@@ -47,7 +47,7 @@
             app:layout_constraintTop_toBottomOf="@+id/item_name" />
 
         <TextView
-            android:id="@+id/item_price"
+            android:id="@+id/item_unit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="72dp"
@@ -95,6 +95,14 @@
             android:text="Selling  "
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/gig_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:layout_editor_absoluteX="25dp" />
 
     </android.support.constraint.ConstraintLayout>
 </LinearLayout>
